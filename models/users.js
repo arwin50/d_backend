@@ -23,7 +23,7 @@ export const createUserRelation = () => {
       type: DataTypes.STRING,
     },
     contactNum: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -37,7 +37,7 @@ export const createUserRelation = () => {
     },
   });
 
-  sequelize.sync({ force: true });
+  sequelize.sync();
   return User;
 };
 

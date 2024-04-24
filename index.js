@@ -6,6 +6,7 @@ import session from "express-session";
 import { createUserRelation } from "./models/users.js";
 import { setupPassport } from "./auth/googleAuth.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js"
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use(passport.session());
 setupPassport();
 
 app.use("/auth/google", authRoutes);
+app.use("/", userRoutes);
 
 app.listen(5000, () => {
   console.log("listening in 5000");
