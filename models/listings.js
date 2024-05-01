@@ -4,26 +4,49 @@ const sequelize = new Sequelize("sequelize-prac", "root", "dlouisefermin321.", {
   dialect: "mysql",
 });
 
-export const createUserRelation = () => {
-  const User = sequelize.define("User", {
+export const createListingRelation = () => {
+  const Listing = sequelize.define("Listing", {
     user_ID: {
       type: DataTypes.STRING,
+      allowNull: true,
+    },
+    dormId: {
+      type: DataTypes.UUID,
+      defaultValue: Sequelize.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
-    email: {
+    listingName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    fullName: {
+    rentType: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    profilePicture: {
+    address: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    contactNum: {
+    availability: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    minimum_rent: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    ideal_price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    room_image: {
+      type: DataTypes.BLOB,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -38,7 +61,7 @@ export const createUserRelation = () => {
   });
 
   sequelize.sync();
-  return User;
+  return Listing;
 };
 
-export const UserModel = createUserRelation();
+export const ListingModel = createListingRelation();
