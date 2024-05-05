@@ -3,8 +3,12 @@ import express from "express";
 import cors from "cors";
 import passport from "passport";
 import session from "express-session";
-import { createUserRelation } from "./models/users.js";
-import { createListingRelation } from "./models/listings.js";
+import {
+  UserModel,
+  ListingModel,
+  FeatureToListingModel,
+  ListingFeatureModel,
+} from "./models/models.js";
 import { setupPassport } from "./auth/googleAuth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
@@ -12,15 +16,13 @@ import listingRoutes from "./routes/listing.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const sequelize = new Sequelize("sequelize-prac", "root", "dlouisefermin321.", {
+const sequelize = new Sequelize("sequelize-prac", "root", "arwin123", {
   dialect: "mysql",
 });
 
 try {
   await sequelize.authenticate();
   console.log("Connection has been established successfully.");
-  await createUserRelation();
-  await createListingRelation();
   console.log("Tables Done!");
 } catch (error) {
   console.error("Unable to connect to the database:", error);

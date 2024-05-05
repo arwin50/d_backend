@@ -4,26 +4,16 @@ const sequelize = new Sequelize("sequelize-prac", "root", "arwin123", {
   dialect: "mysql",
 });
 
-const UserModel = sequelize.define("User", {
-  user_ID: {
-    type: DataTypes.STRING,
+const ListingFeatureModel = sequelize.define("ListingFeature", {
+  featureId: {
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4,
     allowNull: false,
     primaryKey: true,
-    
   },
-  email: {
+  featureName: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  fullName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  profilePicture: {
-    type: DataTypes.STRING,
-  },
-  contactNum: {
-    type: DataTypes.STRING,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -39,4 +29,4 @@ const UserModel = sequelize.define("User", {
 
 await sequelize.sync();
 
-export { UserModel };
+export { ListingFeatureModel };
