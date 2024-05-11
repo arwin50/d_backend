@@ -4,8 +4,10 @@ import { UserModel } from "./users.js";
 import { ListingFeatureModel } from "./listingFeature.js";
 import { FeatureToListingModel } from "./featureToDorm.js";
 
-const sequelize = new Sequelize("sequelize-prac", "root", "arwin123", {
+const sequelize = new Sequelize("sql6705724", "sql6705724", "anblkgUHbj", {
   dialect: "mysql",
+  host: "sql6.freesqldatabase.com",
+  port: "3306",
 });
 
 UserModel.hasMany(ListingModel, {

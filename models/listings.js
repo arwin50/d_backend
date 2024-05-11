@@ -1,7 +1,9 @@
 import { DataTypes, Sequelize } from "sequelize";
 
-const sequelize = new Sequelize("sequelize-prac", "root", "arwin123", {
+const sequelize = new Sequelize("sql6705724", "sql6705724", "anblkgUHbj", {
   dialect: "mysql",
+  host: "sql6.freesqldatabase.com",
+  port: "3306",
 });
 
 const ListingModel = sequelize.define("Listing", {
@@ -47,16 +49,7 @@ const ListingModel = sequelize.define("Listing", {
     type: DataTypes.BLOB,
     allowNull: true,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-  },
+  
 });
 
 await sequelize.sync();

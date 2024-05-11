@@ -16,8 +16,10 @@ import listingRoutes from "./routes/listing.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const sequelize = new Sequelize("sequelize-prac", "root", "arwin123", {
+const sequelize = new Sequelize("sql6705724", "sql6705724", "anblkgUHbj", {
   dialect: "mysql",
+  host: "sql6.freesqldatabase.com",
+  port: "3306",
 });
 
 try {
