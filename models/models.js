@@ -30,7 +30,7 @@ FeatureToListingModel.belongsTo(ListingModel, {
     name: "dormId",
   },
 });
-FeatureToListingModel.hasMany(ListingFeatureModel, {
+FeatureToListingModel.belongsTo(ListingFeatureModel, {
   foreignKey: {
     name: "featureId",
   },

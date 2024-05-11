@@ -11,7 +11,6 @@ const UserModel = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,
-    
   },
   email: {
     type: DataTypes.STRING,
@@ -27,7 +26,6 @@ const UserModel = sequelize.define("User", {
   contactNum: {
     type: DataTypes.STRING,
   },
-  
 });
 
 await sequelize.sync();
