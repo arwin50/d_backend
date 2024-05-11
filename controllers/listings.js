@@ -76,6 +76,22 @@ export const getListing = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    const features = await FeatureToListingModel.findAll({
+      where: {
+        dormId: req.params.dormId,
+      },
+      include: ListingFeatureModel,
+      logging: console.log,
+    });
+
+    console.log("Features:", features);
+
+    const featureNames = features.map(
+      (feature) => feature.ListingFeature.featureName
+    );
+
+    console.log(featureNames);
+
     const listing = {
       user_ID: listings[0].user_ID,
       listingName: listings[0].listingName,
@@ -90,6 +106,7 @@ export const getListing = async (req, res) => {
       user_email: users[0].email,
       user_fullName: users[0].fullName,
       user_contactNo: users[0].contactNo,
+      features: featureNames,
     };
 
     res.json(listing);
