@@ -17,6 +17,7 @@ const ListingFeatureModel = sequelize.define("ListingFeature", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  
 });
 
 await sequelize.sync();
