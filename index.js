@@ -54,7 +54,7 @@ app.use(passport.session());
 setupPassport();
 
 app.use("/auth/google", authRoutes);
-app.use("/", userRoutes);
+app.use("/", userRoutes, listingRoutes);
 app.use("/listing", listingRoutes);
 
 app.listen(5000, () => {

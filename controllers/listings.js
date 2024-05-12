@@ -53,6 +53,46 @@ export const insertListing = async (req, res) => {
   }
 };
 
+export const getListings = async (req, res) => {
+  try {
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    let randomListings = shuffle(await ListingModel.findAll()).slice(0, 5);
+    const listingsWithFeatures = [];
+
+    for (const listing of randomListings) {
+      const features = await FeatureToListingModel.findAll({
+        where: {
+          dormId: listing.dormId,
+        },
+        include: ListingFeatureModel,
+      });
+
+      const featureNames = features.map(
+        (feature) => feature.ListingFeature.featureName
+      );
+
+      listingsWithFeatures.push({
+        dormId: listing.dormId,
+        featureNames: featureNames,
+      });
+    }
+
+    console.log("listingsWithFeatures: ", listingsWithFeatures);
+
+    res.json(listingsWithFeatures);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const getListing = async (req, res) => {
   console.log(req.params.dormId);
   try {
@@ -84,13 +124,9 @@ export const getListing = async (req, res) => {
       logging: console.log,
     });
 
-    console.log("Features:", features);
-
     const featureNames = features.map(
       (feature) => feature.ListingFeature.featureName
     );
-
-    console.log(featureNames);
 
     const listing = {
       user_ID: listings[0].user_ID,
