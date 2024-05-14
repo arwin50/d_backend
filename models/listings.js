@@ -37,16 +37,12 @@ const ListingModel = sequelize.define("Listing", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  minimum_rent: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  ideal_price: {
+  rent: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   room_image: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   createdAt: {

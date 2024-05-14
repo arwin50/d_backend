@@ -14,8 +14,7 @@ export const insertListing = async (req, res) => {
       address: req.body.address,
       availability: req.body.availability,
       description: req.body.description,
-      minimum_rent: req.body.minimum_rent,
-      ideal_price: req.body.ideal_price,
+      rent: req.body.rent,
       room_image: req.body.room_image,
     };
     const roomAmenities = req.body.roomAmenities;
@@ -137,8 +136,7 @@ export const getListing = async (req, res) => {
       address: listings[0].address,
       availability: listings[0].availability,
       description: listings[0].description,
-      minimum_rent: listings[0].minimum_rent,
-      ideal_price: listings[0].ideal_price,
+      rent: listings[0].rent,
       room_image: listings[0].room_image,
       createdAt: listings[0].createdAt,
       user_email: users[0].email,
@@ -169,8 +167,7 @@ export const editListing = async (req, res) => {
         address: req.body.address,
         availability: req.body.availability,
         description: req.body.description,
-        minimum_rent: req.body.minimum_rent,
-        ideal_price: req.body.ideal_price,
+        rent: req.body.rent,
         room_image: req.body.room_image,
       },
       { where: { dormId: req.params.dormId } }
