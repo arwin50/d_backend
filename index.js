@@ -13,6 +13,7 @@ import { setupPassport } from "./auth/googleAuth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import listingRoutes from "./routes/listing.js";
+
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -37,7 +38,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
 app.use(cors(corsOptions));
 app.use(
   session({

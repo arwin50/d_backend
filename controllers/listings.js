@@ -2,6 +2,7 @@ import { UserModel } from "../models/users.js";
 import { FeatureToListingModel } from "../models/featureToDorm.js";
 import { ListingFeatureModel } from "../models/listingFeature.js";
 import { ListingModel } from "../models/listings.js";
+import { ImageUpload } from "../cloudinary/cloudinary.js";
 
 export const insertListing = async (req, res) => {
   console.log(req.body.amenity);
@@ -15,10 +16,16 @@ export const insertListing = async (req, res) => {
       description: req.body.description,
       minimum_rent: req.body.minimum_rent,
       ideal_price: req.body.ideal_price,
-      room_image: req.body.room_image,
+      room_image: req.body.base64,
     };
-    const roomAmenities = req.body.roomAmenities;
 
+    if (info.room_image) {
+      const url = await ImageUpload(info.room_image);
+      info.room_image = url;
+      console.log(url);
+    }
+
+    const roomAmenities = req.body.roomAmenities;
     const newListing = await ListingModel.create(info);
 
     // Iterate over roomAmenities array
