@@ -70,7 +70,7 @@ export const getListings = async (req, res) => {
       return array;
     }
 
-    let randomListings = shuffle(await ListingModel.findAll()).slice(0, 5);
+    let randomListings = shuffle(await ListingModel.findAll());
     const listingsWithFeatures = [];
 
     for (const listing of randomListings) {
@@ -85,8 +85,16 @@ export const getListings = async (req, res) => {
         (feature) => feature.ListingFeature.featureName
       );
 
+      const user = await UserModel.findOne({
+        where: { user_ID: listing.user_ID },
+      });
+
       listingsWithFeatures.push({
         dormId: listing.dormId,
+        room_image: listing.room_image,
+        listingName: listing.listingName,
+        fullName: user.fullName,
+        address: listing.address,
         featureNames: featureNames,
       });
     }
@@ -109,7 +117,7 @@ export const getListing = async (req, res) => {
       },
     });
 
-    if (listings.length === 0) {
+    if (listings.length !== 1) {
       return res.status(404).json({ message: "Listing not found" });
     }
 
@@ -163,9 +171,10 @@ export const getListing = async (req, res) => {
 
 export const editListing = async (req, res) => {
   try {
-    const listing = ListingModel.findOne({
-      where: { dormId: req.body.dormId },
-    });
+    let url = "";
+    if (req.body.base64) {
+      url = await ImageUpload(req.body.base64);
+    }
 
     await ListingModel.update(
       {
@@ -175,7 +184,7 @@ export const editListing = async (req, res) => {
         availability: req.body.availability,
         description: req.body.description,
         rent: req.body.rent,
-        room_image: req.body.room_image,
+        room_image: url,
       },
       { where: { dormId: req.params.dormId } }
     );
