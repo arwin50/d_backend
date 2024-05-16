@@ -10,6 +10,7 @@ const FeatureToListingModel = sequelize.define("FeaturetoListing", {
   featureId: {
     type: DataTypes.STRING,
     allowNull: false,
+    primaryKey: true,
   },
   dormId: {
     type: DataTypes.STRING,

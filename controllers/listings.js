@@ -61,6 +61,7 @@ export const insertListing = async (req, res) => {
 };
 
 export const getListings = async (req, res) => {
+  console.log("asdsadsad", req.query);
   try {
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -70,7 +71,36 @@ export const getListings = async (req, res) => {
       return array;
     }
 
-    let randomListings = shuffle(await ListingModel.findAll());
+    let randomListings;
+
+    if (req.query.name && req.query.name.length > 0) {
+      randomListings = await ListingModel.findAll({
+        where: { listingName: { [Op.like]: `%${req.query.name}%` } },
+      });
+    } else if (req.query.address && req.query.address.length > 0) {
+      randomListings = await ListingModel.findAll({
+        where: { address: { [Op.like]: `%${req.query.address}%` } },
+      });
+    } else if (req.query.amenity && req.query.amenity.length > 0) {
+      const amenity = req.query.amenity;
+
+      const features = await ListingFeatureModel.findAll({
+        where: {
+          featureName: { [Op.like]: `%${amenity}%` },
+        },
+        include: FeatureToListingModel,
+      });
+
+      const dormIds = features.map(
+        (feature) => feature.dataValues.FeaturetoListing.dataValues.dormId
+      );
+
+      randomListings = await ListingModel.findAll({
+        where: { dormId: { [Op.in]: [dormIds] } },
+      });
+    } else {
+      randomListings = await shuffle(ListingModel.findAll());
+    }
     const listingsWithFeatures = [];
 
     for (const listing of randomListings) {
