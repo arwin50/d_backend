@@ -70,20 +70,22 @@ export const getListings = async (req, res) => {
       }
       return array;
     }
-
+    const { name, address, amenity, rent } = req.query;
     let randomListings;
 
-    if (req.query.name && req.query.name.length > 0) {
+    if (name && name.length > 0) {
       randomListings = await ListingModel.findAll({
-        where: { listingName: { [Op.like]: `%${req.query.name}%` } },
+        where: { listingName: { [Op.like]: `%${name}%` } },
       });
-    } else if (req.query.address && req.query.address.length > 0) {
+    } else if (address && address.length > 0) {
       randomListings = await ListingModel.findAll({
-        where: { address: { [Op.like]: `%${req.query.address}%` } },
+        where: { address: { [Op.like]: `%${address}%` } },
       });
-    } else if (req.query.amenity && req.query.amenity.length > 0) {
-      const amenity = req.query.amenity;
-
+    } else if (rent) {
+      randomListings = await ListingModel.findAll({
+        where: { rent: { [Op.lt]: rent } },
+      });
+    } else if (amenity && amenity.length > 0) {
       const features = await ListingFeatureModel.findAll({
         where: {
           featureName: { [Op.like]: `%${amenity}%` },
