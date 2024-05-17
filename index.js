@@ -13,6 +13,7 @@ import { setupPassport } from "./auth/googleAuth.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import listingRoutes from "./routes/listing.js";
+import userlistingRoutes from "./routes/userlisting.js";
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -57,6 +58,7 @@ setupPassport();
 app.use("/auth/google", authRoutes);
 app.use("/", userRoutes, listingRoutes);
 app.use("/listing", listingRoutes);
+app.use("/user", userlistingRoutes);
 
 app.listen(5000, () => {
   console.log("listening in 5000");
