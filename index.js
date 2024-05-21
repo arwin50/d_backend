@@ -8,6 +8,8 @@ import {
   ListingModel,
   FeatureToListingModel,
   ListingFeatureModel,
+  ApplicationInfoModel,
+  ApplyModel,
 } from "./models/models.js";
 import { setupPassport } from "./auth/googleAuth.js";
 import authRoutes from "./routes/auth.js";

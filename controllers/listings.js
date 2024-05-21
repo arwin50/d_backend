@@ -95,39 +95,42 @@ export const getListings = async (req, res) => {
       const dormIds = features.map(
         (feature) => feature.dataValues.FeaturetoListing.dataValues.dormId
       );
-
-      randomListings = await ListingModel.findAll({
-        where: { dormId: { [Op.in]: [dormIds] } },
-      });
+      if (dormIds.length > 0) {
+        randomListings = await ListingModel.findAll({
+          where: { dormId: { [Op.in]: [dormIds] } },
+        });
+      }
     } else {
       randomListings = await shuffle(ListingModel.findAll());
     }
     const listingsWithFeatures = [];
 
-    for (const listing of randomListings) {
-      const features = await FeatureToListingModel.findAll({
-        where: {
+    if (randomListings) {
+      for (const listing of randomListings) {
+        const features = await FeatureToListingModel.findAll({
+          where: {
+            dormId: listing.dormId,
+          },
+          include: ListingFeatureModel,
+        });
+
+        const featureNames = features.map(
+          (feature) => feature.ListingFeature.featureName
+        );
+
+        const user = await UserModel.findOne({
+          where: { user_ID: listing.user_ID },
+        });
+
+        listingsWithFeatures.push({
           dormId: listing.dormId,
-        },
-        include: ListingFeatureModel,
-      });
-
-      const featureNames = features.map(
-        (feature) => feature.ListingFeature.featureName
-      );
-
-      const user = await UserModel.findOne({
-        where: { user_ID: listing.user_ID },
-      });
-
-      listingsWithFeatures.push({
-        dormId: listing.dormId,
-        room_image: listing.room_image,
-        listingName: listing.listingName,
-        fullName: user.fullName,
-        address: listing.address,
-        featureNames: featureNames,
-      });
+          room_image: listing.room_image,
+          listingName: listing.listingName,
+          fullName: user.fullName,
+          address: listing.address,
+          featureNames: featureNames,
+        });
+      }
     }
 
     console.log("listingsWithFeatures: ", listingsWithFeatures);
