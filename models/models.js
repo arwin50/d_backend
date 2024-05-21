@@ -4,7 +4,7 @@ import { UserModel } from "./users.js";
 import { ListingFeatureModel } from "./listingFeature.js";
 import { FeatureToListingModel } from "./featureToDorm.js";
 import { ApplyModel } from "./apply.js";
-import { ApplicationInfoModel } from "./applicationInfo.js";
+import { ApplicationInfoModel } from "./applicationinfo.js";
 
 const sequelize = new Sequelize("sql12707675", "sql12707675", "EVWZ3DhMFZ", {
   dialect: "mysql",
