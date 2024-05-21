@@ -7,15 +7,19 @@ const sequelize = new Sequelize("sql12707675", "sql12707675", "EVWZ3DhMFZ", {
 });
 
 const ApplyModel = sequelize.define("Apply", {
-  application_ID: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   user_ID: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   dormId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  rent: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  status: {
     type: DataTypes.STRING,
     allowNull: false,
   },
