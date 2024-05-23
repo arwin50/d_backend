@@ -9,5 +9,5 @@ router
   .get(listingController.getListing)
   .delete(listingController.deleteListing);
 router.route("/edit/:dormId").put(listingController.editListing);
-
+router.route("/:dormId/applications").post(applicationsController.createApplicationForListing);
 export default router;
