@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import * as listingController from "../controllers/listings.js";
+import * as applicationsController from "../controllers/applications.js"
 
 router.route("/new").post(listingController.insertListing);
 router.route("/read").get(listingController.getListings);

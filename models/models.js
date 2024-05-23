@@ -4,7 +4,6 @@ import { UserModel } from "./users.js";
 import { ListingFeatureModel } from "./listingFeature.js";
 import { FeatureToListingModel } from "./featureToDorm.js";
 import { ApplyModel } from "./apply.js";
-import { ApplicationInfoModel } from "./applicationinfo.js";
 
 const sequelize = new Sequelize("sql12707675", "sql12707675", "EVWZ3DhMFZ", {
   dialect: "mysql",
@@ -44,18 +43,6 @@ ListingFeatureModel.belongsTo(FeatureToListingModel, {
   },
 });
 
-ApplicationInfoModel.belongsTo(ApplyModel, {
-  foreignKey: {
-    name: "application_ID",
-  },
-});
-
-ApplyModel.belongsTo(ApplicationInfoModel, {
-  foreignKey: {
-    name: "application_ID",
-  },
-});
-
 ApplyModel.belongsTo(ListingModel, {
   foreignKey: {
     name: "dormId",
@@ -86,6 +73,5 @@ export {
   UserModel,
   FeatureToListingModel,
   ListingFeatureModel,
-  ApplyModel,
-  ApplicationInfoModel,
+  ApplyModel
 };
