@@ -72,7 +72,6 @@ export const getUserApplications = async (req, res) => {
     const dormApplications = [];
     if (userApplications.length > 0) {
       for (let application of userApplications) {
-        console.log("apple", application);
         const dorm = await ListingModel.findOne({
           where: { dormId: application.dataValues.dormId },
         });

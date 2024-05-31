@@ -4,12 +4,19 @@ import { UserModel } from "./users.js";
 import { ListingFeatureModel } from "./listingFeature.js";
 import { FeatureToListingModel } from "./featureToDorm.js";
 import { ApplyModel } from "./apply.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const sequelize = new Sequelize("sql12707675", "sql12707675", "EVWZ3DhMFZ", {
-  dialect: "mysql",
-  host: "sql12.freesqldatabase.com",
-  port: "3306",
-});
+const sequelize = new Sequelize(
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_PASSWORD,
+  {
+    dialect: "mysql",
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+  }
+);
 
 UserModel.hasMany(ListingModel, {
   foreignKey: {
@@ -73,5 +80,5 @@ export {
   UserModel,
   FeatureToListingModel,
   ListingFeatureModel,
-  ApplyModel
+  ApplyModel,
 };

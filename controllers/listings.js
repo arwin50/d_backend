@@ -4,6 +4,7 @@ import { FeatureToListingModel } from "../models/featureToDorm.js";
 import { ListingFeatureModel } from "../models/listingFeature.js";
 import { ListingModel } from "../models/listings.js";
 import { ImageUpload } from "../cloudinary/cloudinary.js";
+import { ApplyModel } from "../models/apply.js";
 
 export const insertListing = async (req, res) => {
   console.log(req.body.amenity);
@@ -286,6 +287,18 @@ export const deleteListing = async (req, res) => {
     await FeatureToListingModel.destroy({
       where: {
         dormId: req.params.dormId,
+      },
+    });
+
+    const allApplications = await ApplyModel.findAll({
+      where: { dormId: req.params.dormId },
+    }).then((results) => results.map((result) => result.dormId));
+
+    await ApplyModel.destroy({
+      where: {
+        dormId: {
+          [Op.in]: allApplications,
+        },
       },
     });
 
