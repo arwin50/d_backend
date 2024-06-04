@@ -36,6 +36,9 @@ export const readApplicationForListing = async (req, res) => {
         model: UserModel,
         attributes: ["fullName"],
       },
+      where: {
+        dormId: req.params.dormId,
+      },
     });
     console.log(applications);
     res.status(200).json(applications);

@@ -15,4 +15,5 @@ router
   .post(applicationsController.createApplicationForListing)
   .get(applicationsController.readApplicationForListing)
   .put(applicationsController.updateApplicationForListing);
+
 export default router;
