@@ -2,8 +2,6 @@ import { DataTypes, Sequelize } from "sequelize";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-
-
 const sequelize = new Sequelize(
   process.env.DATABASE_NAME,
   process.env.DATABASE_NAME,
@@ -24,6 +22,7 @@ const FeatureToListingModel = sequelize.define("FeaturetoListing", {
   dormId: {
     type: DataTypes.STRING,
     allowNull: false,
+    primaryKey: true,
   },
 });
 
